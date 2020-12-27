@@ -7,7 +7,7 @@ SECRET_KEY = 'mdmwd^3%#x#5aqkwqb=gkwn@#-w%&@(hi*)q+8wcri@k0ps)pq'
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['django-article-news.herokuapp.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
