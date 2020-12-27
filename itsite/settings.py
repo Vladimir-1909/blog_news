@@ -89,9 +89,12 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'vtgk12ak@gmail.com' # От кого
 EMAIL_HOST_PASSWORD = 'hikq mqnb jboh tlsh'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+    BASE_DIR / "static"
+]
 
 LOGIN_REDIRECT_URL = 'profile'
 LOGIN_URL = 'user'
