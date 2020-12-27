@@ -1,0 +1,92 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+{% for post in news %}
+<div class="alert alert-light mt-2">
+    <img src="{{ post.img_article.url }}" class="img-fluid" alt="article_images">
+    <h3 class="mt-2">{{ post.title }}</h3>
+    <p>{{ post.text|striptags|truncatechars:200 }}</p>
+    <div class="row ml-2">
+        <div>
+            <img src="{{ post.avtor.profile.img.url }}" alt="{{ post.avtor }}" class="user_images">
+        </div>
+        <div class="mt-2">
+            <span class="text-muted">Публикация: {{ post.date|date:"d E Y, в H:i" }}</span>
+            <p><b>Автор:</b>
+                <a href="{% url 'user-news' post.avtor %}" class="btn btn-light">{{ post.avtor }}</a>
+            </p>
+        </div>
+    </div>
+    <a href="{% url 'news-detail' post.id %}" class="btn btn-outline-warning mt-2 w-100">Читать далее</a>
+</div>
+{% endfor %}
+
+{% if is_paginated %}
+{% if page_obj.has_previous %} <!-- page_obj -позволяет работать с данными о пагинации -->
+<a href="{% url 'home' %}" class="btn btn-outline-info">Начало</a>
+<a href="?page={{ page_obj.previous_page_number }}" class="btn btn-info"> << </a>
+{% else %}
+<button class="btn btn-secondary">Начало</button>
+<button class="btn btn-secondary"> <<</button>
+{% endif %}
+
+{% for num in page_obj.paginator.page_range %}
+{% if num == page_obj.number %}
+<button class="btn btn-info">{{ num }}</button>
+{% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3'  %}
+<a href="?page={{ num }}" class="btn btn-outline-info">{{ num }}</a>
+{% endif %}
+{% endfor %}
+
+{% if page_obj.has_next %} <!-- page_obj -позволяет работать с данными о пагинации -->
+<a href="?page={{ page_obj.next_page_number }}" class="btn btn-info"> >> </a>
+<a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-outline-info">Последняя</a>
+{% else %}
+<button class="btn btn-secondary"> >></button>
+<button class="btn btn-secondary">Последняя</button>
+{% endif %}
+{% endif %}
+
+{% endblock %}
+
+{% block aside_block %}
+{% if user.is_authenticated %}
+<h2 class="title">Пользователь</h2>
+<hr>
+<div class="media text-muted mb-2">
+    <img class="bd-placeholder-img mr-2 rounded" width="64" height="64" src="{{ user.profile.img.url }}">
+    <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+        <strong class="d-block text-gray-dark">@{{ user.username }}</strong>
+        {% if user.email %}
+        <b>Email:</b> {{ user.email }}
+        {% endif %}
+    </p>
+</div>
+{% endif %}
+
+<h4 class="mt-1">Интересные статьи</h4>
+<img src="https://itproger.com/img/courses/1606232997.jpg" alt="img" class="img-thumbnail mt-2">
+<p>Представляем вам курс по изучению языка Golang.
+    В ходе уроков языка Go вы научитесь писать код на Golang и
+    создадите на его основе полноценный небольшой веб сайт.
+    Курс небольшой и рассчитан на новичков в этой сфере.</p>
+
+<a href="https://itproger.com/course/golang" target="_blank">
+    <button class="btn btn-warning">Посмотреть</button>
+</a>
+
+<img src="https://itproger.com/img/courses/1601651547.jpg" alt="img" class="img-thumbnail mt-4">
+<p>Разработка на C# включает в себе множество аспектов.
+    За курс мы будем изучать платформу WPF,
+    что позволяет вести разработку полноценных программ под ПК.
+    научимся работать с WPF, языком XAML и по итогу создадим полный проект с базой данных.</p>
+
+<a href="https://itproger.com/course/golang" target="_blank">
+    <button class="btn btn-warning">Посмотреть</button>
+</a>
+
+{% endblock %}

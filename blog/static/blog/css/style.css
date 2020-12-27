@@ -1,0 +1,74 @@
+body {background: #fafafa}
+
+.alert-light {
+    border-color: #bfbfbf;
+    padding: 0;
+}
+
+.alert-light h3,
+.alert-light > p {
+    padding: 7px 20px;
+}
+
+.user_images {
+    width: 64px;
+    height: 64xp;
+    border-radius: 50%;
+    margin-right: 15px;
+    margin-left: 20px;
+}
+
+.form-register {
+    padding: 20px;
+    background: #fff;
+    border: 1px solid silver;
+    border-radius: 5px;
+    margin-top: 20px;
+    width: 600px;
+}
+
+.title {color: #b38a22}
+
+.profile {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile2 {
+    display: block;
+    direction: rtl;
+}
+
+.profile2 label {
+    margin-left: 5px;
+}
+
+.helptext {font-size: 9pt}
+
+.img_field {
+    display: flex;
+    weight: 100%;
+}
+
+.form-register .helptext {color: #b7b7b7}
+
+.form-register ul.errorlist {
+    color: #ca5858;
+    font-weight: bold;
+}
+
+.form-register.auth input,
+.form-register.auth textarea {
+    display: block;
+    width: 100%;
+    margin-top: 5px;
+    border: 1px solid silver;
+    border-radius: 5px;
+    padding: 3%;
+    font-size: 16pt;
+}
+
+footer {
+    width: 70%;
+    margin-left: 15%;
+}

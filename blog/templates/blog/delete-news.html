@@ -1,0 +1,42 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+<form method="post" class="form-register">
+    <h3>Вы точно хотите удалить статью?</h3>
+    <h5>"{{ object.title }}"</h5> <!-- object - это сам обьект "статья"-->
+    {% csrf_token %}
+    <button class="btn btn-outline-danger" type="submit">{{ btn_text_yes }}</button>
+    <a href="{% url 'news-detail' object.id %}" class="btn btn-outline-success">{{ btn_text_no }}</a> <!-- object - это сам обьект "статья"-->
+</form>
+
+{% endblock %}
+
+{% block aside_block %}
+<h4 class="mt-3">Интересные статьи</h4>
+
+<img src="https://itproger.com/img/courses/1601651547.jpg" alt="img" class="img-thumbnail mt-2">
+<p>Разработка на C# включает в себе множество аспектов.
+    За курс мы будем изучать платформу WPF,
+    что позволяет вести разработку полноценных программ под ПК.
+    научимся работать с WPF, языком XAML и по итогу создадим полный проект с базой данных.</p>
+
+<a href="https://itproger.com/course/golang" target="_blank">
+    <button class="btn btn-warning">Посмотреть</button>
+</a>
+
+<img src="https://itproger.com/img/courses/1606232997.jpg" alt="img" class="img-thumbnail mt-4">
+<p>Представляем вам курс по изучению языка Golang.
+    В ходе уроков языка Go вы научитесь писать код на Golang и
+    создадите на его основе полноценный небольшой веб сайт.
+    Курс небольшой и рассчитан на новичков в этой сфере.</p>
+
+<a href="https://itproger.com/course/golang" target="_blank">
+    <button class="btn btn-warning">Посмотреть</button>
+</a>
+
+{% endblock %}
