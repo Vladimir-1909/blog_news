@@ -5,7 +5,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'mdmwd^3%#x#5aqkwqb=gkwn@#-w%&@(hi*)q+8wcri@k0ps)pq'
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -92,9 +92,6 @@ EMAIL_HOST_PASSWORD = 'hikq mqnb jboh tlsh'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    BASE_DIR / "static"
-]
 
 LOGIN_REDIRECT_URL = 'profile'
 LOGIN_URL = 'user'
