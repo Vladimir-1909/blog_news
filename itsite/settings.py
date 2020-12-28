@@ -1,6 +1,6 @@
 from pathlib import Path
 import os
-import django_heroku
+# import django_heroku
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -100,4 +100,4 @@ LOGIN_URL = 'user'
 MEDIA_URL = '/pictures/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'pictures')
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
