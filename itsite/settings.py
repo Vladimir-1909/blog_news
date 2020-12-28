@@ -7,7 +7,7 @@ SECRET_KEY = 'mdmwd^3%#x#5aqkwqb=gkwn@#-w%&@(hi*)q+8wcri@k0ps)pq'
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['django-article-news.herokuapp.com']
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -88,6 +88,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'vtgk12ak@gmail.com' # От кого
 EMAIL_HOST_PASSWORD = 'hikq mqnb jboh tlsh'
+
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'

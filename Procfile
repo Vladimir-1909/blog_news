@@ -1,1 +1,1 @@
-web: gunicorn itsite.wsqi
+web: gunicorn itsite.wsgi
