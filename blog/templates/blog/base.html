@@ -1,57 +1,51 @@
 {% load static %}
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'blog/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'blog/css/style.css' %}">
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-
-<nav class="navbar navbar-expand-lg navbar-light bg-light rounded" aria-label="Eleventh navbar example">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="navbar-collapse collapse" id="navbarsExample09" style="">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="{% url 'home' %}">itProger</a>
+    <div class="collapse navbar-collapse" id="navbarsExample09">
+        <ul class="navbar-nav me-auto">
             <li class="nav-item active">
-              <a class="nav-link" aria-current="page" href="#">Home</a>
+                <a class="nav-link" href="{% url 'home' %}">Главная</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
+                <a class="nav-link" href="{% url 'contacti' %}">Контакты</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="dropdown09" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
-              <ul class="dropdown-menu" aria-labelledby="dropdown09">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-              </ul>
-            </li>
-          </ul>
-          <form>
-            <input class="form-control" type="text" placeholder="Search" aria-label="Search">
-          </form>
-        </div>
-      </div>
-    </nav>
+        </ul>
+    </div>
 
-
+    {% if not user.is_authenticated %}
+    <a href="{% url 'reg' %}">
+        <button class="btn btn-outline-warning">Регистрация</button>
+    </a>
+    <a href="{% url 'user' %}">
+        <button class="btn btn-outline-info ml-2">Войти</button>
+    </a>
+    {% else %}
+    <img src="{{ objects.avtor.profile.img.url }}" alt="{{ post.avtor }}" class="user_images">
+    <a href="{% url 'news-add' %}">
+        <button class="btn btn-outline-secondary">Добавить статью</button>
+    </a>
+    <a href="{% url 'profile' %}">
+        <button class="btn btn-outline-success ml-2">Профиль</button>
+    </a>
+    <a href="{% url 'exit' %}">
+        <button class="btn btn-outline-danger ml-2">Выйти</button>
+    </a>
+    {% endif %}
+</nav>
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-8">
@@ -68,6 +62,7 @@
         <aside class="col-md-4">
             {% block aside_block %}
             {% endblock %}
+            <a href="{% url 'send_email' %}" class="btn btn-outline-info w-100 mt-3">Отправить сообщение</a>
         </aside>
     </div>
 </div>
@@ -107,5 +102,15 @@
         </div>
     </div>
 </footer>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
 </body>
 </html>

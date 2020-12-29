@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Profile
+from .models import Profile, SendMail
 
 
 class UserRegisterForm(UserCreationForm):
@@ -112,3 +112,36 @@ class MailAgreement(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['agreement']
+
+
+class SendMailUserForm(forms.ModelForm):
+    subject = forms.CharField(
+        label='Тема письма',
+        required=True,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Форма отправки сообщений',
+        })
+    )
+    from_email = forms.EmailField(
+        label='Ваша почта',
+        required=True,
+        help_text='Обязательное поле',
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'autocomplete': 'off'
+        })
+    )
+    plain_message = forms.CharField(
+        label='Введите текст сообщения',
+        required=True,
+        widget=forms.Textarea(attrs={
+            'class': 'form-control',
+            'placeholder': 'Все поля проходят проверки. Если что-то не заполнено, то отображается ошибка',
+            'autocomplete': 'off'
+        })
+    )
+
+    class Meta:
+        model = SendMail
+        fields = ['subject', 'from_email', 'plain_message']

@@ -27,7 +27,8 @@ urlpatterns = [
          authViews.PasswordResetDoneView.as_view(template_name='users/password_reset_done.html'),
          name='password_reset_done'),
 
-    path('profile/', userViews.profile, name='profile')
+    path('profile/', userViews.profile, name='profile'),
+    path('send_mail/', userViews.sendEmail, name='send_email')
 ]
 
 # если в режиме DEBUG, указываем правильные пути к папкам с изображениями

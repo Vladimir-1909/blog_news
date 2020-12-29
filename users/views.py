@@ -1,7 +1,14 @@
 from django.shortcuts import render, redirect
-from .forms import UserRegisterForm, ProfileImageForm, UserUpdateForm, UpdateGenderSelection, MailAgreement
+from .forms import (
+    UserRegisterForm,
+    ProfileImageForm, UserUpdateForm,
+    UpdateGenderSelection, MailAgreement,
+    SendMailUserForm
+)
 from django.contrib import messages # создаем успешные или неуспешные сообщения
 from django.contrib.auth.decorators import login_required # Декаратор
+from django.core.mail import send_mail, BadHeaderError
+from itsite.settings import EMAIL_HOST_USER
 
 
 def register(request):
@@ -50,3 +57,29 @@ def profile(request):
     }
 
     return render(request, 'users/profile.html', context=data)
+
+
+@login_required # проверяет на авторизация
+def sendEmail(request):
+    if request.method == 'GET':
+        form = SendMailUserForm()
+    elif request.method == 'POST':
+        form = SendMailUserForm(request.POST)
+        if form.is_valid():
+            subject = form.cleaned_data['subject']
+            plain_message = form.cleaned_data['plain_message']
+            from_email = form.cleaned_data['from_email']
+            try:
+                send_mail(subject, plain_message, from_email, [EMAIL_HOST_USER])
+                messages.success(request, f'Сообщение было успешно отправленно')
+                form.save()
+                return redirect('home')
+            except BadHeaderError:
+                messages.success(request, 'Ошибка в теме письма.')
+                return redirect('send_email')
+        else:
+            messages.success(request, 'Неверный запрос!')
+            return redirect('send_email')
+    return render(request, 'users/send_mail.html', {'sendMail': form})
+
+

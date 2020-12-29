@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
+from itsite.settings import EMAIL_HOST_USER
 
 
 class Profile(models.Model):
@@ -33,3 +34,17 @@ class Profile(models.Model):
         verbose_name = 'Профайл'
         verbose_name_plural = 'Профайлы'
 
+
+class SendMail(models.Model):
+    subject = models.CharField('Тема письма', max_length=100)
+    plain_message = models.TextField('Текст сообщения')
+    from_email = models.EmailField('Email отправителя', max_length=50)
+    to = models.EmailField('Получатель', max_length=50, default=EMAIL_HOST_USER)
+    # Я сделал отправку самому себе, но в БД отправляется кто оправлял "Ваша почта" это сообщение.
+
+    def __str__(self):
+        return f'{self.subject}'
+
+    class Meta:
+        verbose_name = 'Котант'
+        verbose_name_plural = 'Контакты'
